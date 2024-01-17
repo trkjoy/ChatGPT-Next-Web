@@ -757,7 +757,7 @@ function _Chat() {
 
       // auto sync mask config from global config
       if (session.mask.syncGlobalConfig) {
-        console.log("[Mask] syncing from global, name = ", session.mask.name);
+        // console.log("[Mask] syncing from global, name = ", session.mask.name);
         session.mask.modelConfig = { ...config.modelConfig };
       }
     });
@@ -987,13 +987,29 @@ function _Chat() {
       doSubmit(text);
     },
     code: (text) => {
-      if (accessStore.disableFastLink) return;
-      console.log("[Command] got code from url: ", text);
-      showConfirm(Locale.URLCommand.Code + `code = ${text}`).then((res) => {
-        if (res) {
-          accessStore.update((access) => (access.accessCode = text));
-        }
-      });
+      if (text.endsWith('/')) {
+        text = text.slice(0, -1);
+      }
+      accessStore.updateCode(text);
+      // if (accessStore.disableFastLink) return;
+      // console.log("[Command] got code from url: ", text);
+      // showConfirm(Locale.URLCommand.Code + `code = ${text}`).then((res) => {
+      //   if (res) {
+      //     accessStore.update((access) => (access.accessCode = text));
+      //   }
+      // });
+    },
+    name: (text) => {
+      if (text.endsWith('/')) {
+        text = text.slice(0, -1);
+      }
+      accessStore.updateName(text);
+    },
+    token: (text) => {
+      if (text.endsWith('/')) {
+        text = text.slice(0, -1);
+      }
+      accessStore.updateToken(text);
     },
     settings: (text) => {
       if (accessStore.disableFastLink) return;

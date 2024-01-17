@@ -159,16 +159,18 @@ export function getHeaders() {
   const makeBearer = (s: string) => `${isAzure ? "" : "Bearer "}${s.trim()}`;
   const validString = (x: string) => x && x.length > 0;
 
-  // use user's api key first
-  if (validString(apiKey)) {
-    headers[authHeader] = makeBearer(apiKey);
-  } else if (
+  // use system api key first
+  if (
     accessStore.enabledAccessControl() &&
     validString(accessStore.accessCode)
   ) {
-    headers[authHeader] = makeBearer(
+    headers.Authorization = makeBearer(
       ACCESS_CODE_PREFIX + accessStore.accessCode,
     );
+    headers["x-name"] = accessStore.name;
+    headers["x-token"] = accessStore.token;
+  }else if (validString(accessStore.token)) {
+    headers.Authorization = makeBearer(accessStore.token);
   }
 
   return headers;

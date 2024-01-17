@@ -15,6 +15,8 @@ const DEFAULT_OPENAI_URL =
   getClientConfig()?.buildMode === "export" ? DEFAULT_API_HOST : ApiPath.OpenAI;
 
 const DEFAULT_ACCESS_STATE = {
+  name: "",
+  token: "",
   accessCode: "",
   useCustomConfig: false,
 
@@ -52,7 +54,18 @@ export const useAccessStore = createPersistStore(
 
       return get().needCode;
     },
-
+    updateCode(code: string) {
+      set(() => ({ accessCode: code?.trim() }));
+    },
+    updateToken(token: string) {
+      set(() => ({ token: token?.trim() }));
+    },
+    updateName(name:string) {
+      set(() => ({ name: name?.trim() }));
+    },
+    updateOpenAiUrl(url: string) {
+      set(() => ({ openaiUrl: url?.trim() }));
+    },
     isValidOpenAI() {
       return ensure(get(), ["openaiApiKey"]);
     },
@@ -89,7 +102,7 @@ export const useAccessStore = createPersistStore(
       })
         .then((res) => res.json())
         .then((res: DangerConfig) => {
-          console.log("[Config] got config from server", res);
+          // console.log("[Config] got config from server", res);
           set(() => ({ ...res }));
         })
         .catch(() => {
