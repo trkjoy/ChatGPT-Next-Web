@@ -29,8 +29,8 @@ async function handle(
 
   let path = `${req.nextUrl.pathname}`.replaceAll("/api/google/", "");
 
-  console.log("[Proxy] ", path);
-  console.log("[Base Url]", baseUrl);
+  // console.log("[Proxy] ", path);
+  // console.log("[Base Url]", baseUrl);
 
   const timeoutId = setTimeout(
     () => {
