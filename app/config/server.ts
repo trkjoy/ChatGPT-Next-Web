@@ -90,7 +90,7 @@ declare global {
   }
 }
 
-const ACCESS_CODES = (function getAccessCodes(): Set<string> {
+const ACCESS_CODES = (function getAccessCodes (): Set<string> {
   const code = process.env.CODE;
 
   try {
@@ -103,17 +103,15 @@ const ACCESS_CODES = (function getAccessCodes(): Set<string> {
   }
 })();
 
-function getApiKey(keys?: string) {
+function getApiKey (keys?: string) {
   const apiKeyEnvVar = keys ?? "";
   const apiKeys = apiKeyEnvVar.split(",").map((v) => v.trim());
   const randomIndex = Math.floor(Math.random() * apiKeys.length);
   const apiKey = apiKeys[randomIndex];
   if (apiKey) {
-    console.log(
-      `[Server Config] using ${randomIndex + 1} of ${
-        apiKeys.length
-      } api key - ${apiKey}`,
-    );
+    // console.log(
+    //   `[Server Config] using ${randomIndex + 1} of ${apiKeys.length}`,
+    // );
   }
 
   return apiKey;

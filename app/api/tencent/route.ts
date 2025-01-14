@@ -7,7 +7,7 @@ import { getHeader } from "@/app/utils/tencent";
 
 const serverConfig = getServerSideConfig();
 
-async function handle(
+async function handle (
   req: NextRequest,
   { params }: { params: { path: string[] } },
 ) {
@@ -57,7 +57,7 @@ export const preferredRegion = [
   "syd1",
 ];
 
-async function request(req: NextRequest) {
+async function request (req: NextRequest) {
   const controller = new AbortController();
 
   let baseUrl = serverConfig.tencentUrl || TENCENT_BASE_URL;

@@ -45,8 +45,9 @@ export const DEFAULT_CONFIG = {
   avatar: "1f603",
   fontSize: 14,
   fontFamily: "",
-  theme: Theme.Auto as Theme,
-  tightBorder: !!config?.isApp,
+  theme: Theme.Dark as Theme,
+  // tightBorder: !!config?.isApp,
+  tightBorder: true,
   sendPreviewBubble: true,
   enableAutoGenerateTitle: true,
   sidebarWidth: DEFAULT_SIDEBAR_WIDTH,
@@ -112,7 +113,7 @@ export type ModelConfig = ChatConfig["modelConfig"];
 export type TTSConfig = ChatConfig["ttsConfig"];
 export type RealtimeConfig = ChatConfig["realtimeConfig"];
 
-export function limitNumber(
+export function limitNumber (
   x: number,
   min: number,
   max: number,
@@ -126,37 +127,37 @@ export function limitNumber(
 }
 
 export const TTSConfigValidator = {
-  engine(x: string) {
+  engine (x: string) {
     return x as TTSEngineType;
   },
-  model(x: string) {
+  model (x: string) {
     return x as TTSModelType;
   },
-  voice(x: string) {
+  voice (x: string) {
     return x as TTSVoiceType;
   },
-  speed(x: number) {
+  speed (x: number) {
     return limitNumber(x, 0.25, 4.0, 1.0);
   },
 };
 
 export const ModalConfigValidator = {
-  model(x: string) {
+  model (x: string) {
     return x as ModelType;
   },
-  max_tokens(x: number) {
+  max_tokens (x: number) {
     return limitNumber(x, 0, 512000, 1024);
   },
-  presence_penalty(x: number) {
+  presence_penalty (x: number) {
     return limitNumber(x, -2, 2, 0);
   },
-  frequency_penalty(x: number) {
+  frequency_penalty (x: number) {
     return limitNumber(x, -2, 2, 0);
   },
-  temperature(x: number) {
+  temperature (x: number) {
     return limitNumber(x, 0, 2, 1);
   },
-  top_p(x: number) {
+  top_p (x: number) {
     return limitNumber(x, 0, 1, 1);
   },
 };
@@ -164,11 +165,11 @@ export const ModalConfigValidator = {
 export const useAppConfig = createPersistStore(
   { ...DEFAULT_CONFIG },
   (set, get) => ({
-    reset() {
+    reset () {
       set(() => ({ ...DEFAULT_CONFIG }));
     },
 
-    mergeModels(newModels: LLMModel[]) {
+    mergeModels (newModels: LLMModel[]) {
       if (!newModels || newModels.length === 0) {
         return;
       }
@@ -191,13 +192,13 @@ export const useAppConfig = createPersistStore(
       }));
     },
 
-    allModels() {},
+    allModels () { },
   }),
   {
     name: StoreKey.Config,
     version: 4.1,
 
-    merge(persistedState, currentState) {
+    merge (persistedState, currentState) {
       const state = persistedState as ChatConfig | undefined;
       if (!state) return { ...currentState };
       const models = currentState.models.slice();
@@ -211,7 +212,7 @@ export const useAppConfig = createPersistStore(
       return { ...currentState, ...state, models: models };
     },
 
-    migrate(persistedState, version) {
+    migrate (persistedState, version) {
       const state = persistedState as ChatConfig;
 
       if (version < 3.4) {
