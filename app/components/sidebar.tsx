@@ -41,7 +41,7 @@ const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
 });
 
-export function useHotKey() {
+export function useHotKey () {
   const chatStore = useChatStore();
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export function useHotKey() {
   });
 }
 
-export function useDragSideBar() {
+export function useDragSideBar () {
   const limit = (x: number) => Math.min(MAX_SIDEBAR_WIDTH, x);
 
   const config = useAppConfig();
@@ -133,7 +133,7 @@ export function useDragSideBar() {
     shouldNarrow,
   };
 }
-export function SideBarContainer(props: {
+export function SideBarContainer (props: {
   children: React.ReactNode;
   onDragStart: (e: MouseEvent) => void;
   shouldNarrow: boolean;
@@ -166,7 +166,7 @@ export function SideBarContainer(props: {
   );
 }
 
-export function SideBarHeader(props: {
+export function SideBarHeader (props: {
   title?: string | React.ReactNode;
   subTitle?: string | React.ReactNode;
   logo?: React.ReactNode;
@@ -195,7 +195,7 @@ export function SideBarHeader(props: {
   );
 }
 
-export function SideBarBody(props: {
+export function SideBarBody (props: {
   children: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }) {
@@ -207,7 +207,7 @@ export function SideBarBody(props: {
   );
 }
 
-export function SideBarTail(props: {
+export function SideBarTail (props: {
   primaryAction?: React.ReactNode;
   secondaryAction?: React.ReactNode;
 }) {
@@ -221,7 +221,7 @@ export function SideBarTail(props: {
   );
 }
 
-export function SideBar(props: { className?: string }) {
+export function SideBar (props: { className?: string }) {
   useHotKey();
   const { onDragStart, shouldNarrow } = useDragSideBar();
   const [showDiscoverySelector, setshowDiscoverySelector] = useState(false);
@@ -236,8 +236,8 @@ export function SideBar(props: { className?: string }) {
       {...props}
     >
       <SideBarHeader
-        title="NextChat"
-        subTitle="Build your own AI assistant."
+        title="欢乐畅游"
+        subTitle="AI.助手"
         logo={<ChatGptIcon />}
         shouldNarrow={shouldNarrow}
       >
@@ -311,7 +311,7 @@ export function SideBar(props: { className?: string }) {
                 />
               </Link>
             </div>
-            <div className={styles["sidebar-action"]}>
+            {/* <div className={styles["sidebar-action"]}>
               <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
                 <IconButton
                   aria={Locale.Export.MessageFromChatGPT}
@@ -319,7 +319,7 @@ export function SideBar(props: { className?: string }) {
                   shadow
                 />
               </a>
-            </div>
+            </div> */}
           </>
         }
         secondaryAction={
