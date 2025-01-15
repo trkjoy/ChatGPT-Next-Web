@@ -134,7 +134,7 @@ const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
 });
 
-export function SessionConfigModel(props: { onClose: () => void }) {
+export function SessionConfigModel (props: { onClose: () => void }) {
   const chatStore = useChatStore();
   const session = chatStore.currentSession();
   const maskStore = useMaskStore();
@@ -202,7 +202,7 @@ export function SessionConfigModel(props: { onClose: () => void }) {
   );
 }
 
-function PromptToast(props: {
+function PromptToast (props: {
   showToast?: boolean;
   showModal?: boolean;
   setShowModal: (_: boolean) => void;
@@ -232,7 +232,7 @@ function PromptToast(props: {
   );
 }
 
-function useSubmitHandler() {
+function useSubmitHandler () {
   const config = useAppConfig();
   const submitKey = config.submitKey;
   const isComposing = useRef(false);
@@ -281,7 +281,7 @@ function useSubmitHandler() {
 
 export type RenderPrompt = Pick<Prompt, "title" | "content">;
 
-export function PromptHints(props: {
+export function PromptHints (props: {
   prompts: RenderPrompt[];
   onPromptSelect: (prompt: RenderPrompt) => void;
 }) {
@@ -351,7 +351,7 @@ export function PromptHints(props: {
   );
 }
 
-function ClearContextDivider() {
+function ClearContextDivider () {
   const chatStore = useChatStore();
   const session = chatStore.currentSession();
 
@@ -373,7 +373,7 @@ function ClearContextDivider() {
   );
 }
 
-export function ChatAction(props: {
+export function ChatAction (props: {
   text: string;
   icon: JSX.Element;
   onClick: () => void;
@@ -385,7 +385,7 @@ export function ChatAction(props: {
     icon: 16,
   });
 
-  function updateWidth() {
+  function updateWidth () {
     if (!iconRef.current || !textRef.current) return;
     const getWidth = (dom: HTMLDivElement) => dom.getBoundingClientRect().width;
     const textWidth = getWidth(textRef.current);
@@ -422,14 +422,14 @@ export function ChatAction(props: {
   );
 }
 
-function useScrollToBottom(
+function useScrollToBottom (
   scrollRef: RefObject<HTMLDivElement>,
   detach: boolean = false,
 ) {
   // for auto-scroll
 
   const [autoScroll, setAutoScroll] = useState(true);
-  function scrollDomToBottom() {
+  function scrollDomToBottom () {
     const dom = scrollRef.current;
     if (dom) {
       requestAnimationFrame(() => {
@@ -454,7 +454,7 @@ function useScrollToBottom(
   };
 }
 
-export function ChatActions(props: {
+export function ChatActions (props: {
   uploadImage: () => void;
   setAttachImages: (images: string[]) => void;
   setUploading: (uploading: boolean) => void;
@@ -475,7 +475,7 @@ export function ChatActions(props: {
 
   // switch themes
   const theme = config.theme;
-  function nextTheme() {
+  function nextTheme () {
     const themes = [Theme.Auto, Theme.Light, Theme.Dark];
     const themeIndex = themes.indexOf(theme);
     const nextIndex = (themeIndex + 1) % themes.length;
@@ -645,11 +645,10 @@ export function ChatActions(props: {
           <Selector
             defaultSelectedValue={`${currentModel}@${currentProviderName}`}
             items={models.map((m) => ({
-              title: `${m.displayName}${
-                m?.provider?.providerName
-                  ? " (" + m?.provider?.providerName + ")"
-                  : ""
-              }`,
+              title: `${m.displayName}${m?.provider?.providerName
+                ? " (" + m?.provider?.providerName + ")"
+                : ""
+                }`,
               value: `${m.name}@${m?.provider?.providerName}`,
             }))}
             onClose={() => setShowModelSelector(false)}
@@ -808,7 +807,7 @@ export function ChatActions(props: {
   );
 }
 
-export function EditMessageModal(props: { onClose: () => void }) {
+export function EditMessageModal (props: { onClose: () => void }) {
   const chatStore = useChatStore();
   const session = chatStore.currentSession();
   const [messages, setMessages] = useState(session.messages.slice());
@@ -872,7 +871,7 @@ export function EditMessageModal(props: { onClose: () => void }) {
   );
 }
 
-export function DeleteImageButton(props: { deleteImage: () => void }) {
+export function DeleteImageButton (props: { deleteImage: () => void }) {
   return (
     <div className={styles["delete-image"]} onClick={props.deleteImage}>
       <DeleteIcon />
@@ -880,7 +879,7 @@ export function DeleteImageButton(props: { deleteImage: () => void }) {
   );
 }
 
-export function ShortcutKeyModal(props: { onClose: () => void }) {
+export function ShortcutKeyModal (props: { onClose: () => void }) {
   const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
   const shortcuts = [
     {
@@ -947,7 +946,7 @@ export function ShortcutKeyModal(props: { onClose: () => void }) {
   );
 }
 
-function _Chat() {
+function _Chat () {
   type RenderMessage = ChatMessage & { preview?: boolean };
 
   const chatStore = useChatStore();
@@ -965,9 +964,9 @@ function _Chat() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isScrolledToBottom = scrollRef?.current
     ? Math.abs(
-        scrollRef.current.scrollHeight -
-          (scrollRef.current.scrollTop + scrollRef.current.clientHeight),
-      ) <= 1
+      scrollRef.current.scrollHeight -
+      (scrollRef.current.scrollTop + scrollRef.current.clientHeight),
+    ) <= 1
     : false;
   const isAttachWithTop = useMemo(() => {
     const lastMessage = scrollRef.current?.lastElementChild as HTMLElement;
@@ -1246,7 +1245,7 @@ function _Chat() {
   const accessStore = useAccessStore();
   const [speechStatus, setSpeechStatus] = useState(false);
   const [speechLoading, setSpeechLoading] = useState(false);
-  async function openaiSpeech(text: string) {
+  async function openaiSpeech (text: string) {
     if (speechStatus) {
       ttsPlayer.stop();
       setSpeechStatus(false);
@@ -1311,27 +1310,27 @@ function _Chat() {
       .concat(
         isLoading
           ? [
-              {
-                ...createMessage({
-                  role: "assistant",
-                  content: "……",
-                }),
-                preview: true,
-              },
-            ]
+            {
+              ...createMessage({
+                role: "assistant",
+                content: "……",
+              }),
+              preview: true,
+            },
+          ]
           : [],
       )
       .concat(
         userInput.length > 0 && config.sendPreviewBubble
           ? [
-              {
-                ...createMessage({
-                  role: "user",
-                  content: userInput,
-                }),
-                preview: true,
-              },
-            ]
+            {
+              ...createMessage({
+                role: "user",
+                content: userInput,
+              }),
+              preview: true,
+            },
+          ]
           : [],
       );
   }, [
@@ -1345,7 +1344,7 @@ function _Chat() {
   const [msgRenderIndex, _setMsgRenderIndex] = useState(
     Math.max(0, renderMessages.length - CHAT_PAGE_SIZE),
   );
-  function setMsgRenderIndex(newIndex: number) {
+  function setMsgRenderIndex (newIndex: number) {
     newIndex = Math.min(renderMessages.length - CHAT_PAGE_SIZE, newIndex);
     newIndex = Math.max(0, newIndex);
     _setMsgRenderIndex(newIndex);
@@ -1380,7 +1379,7 @@ function _Chat() {
     setHitBottom(isHitBottom);
     setAutoScroll(isHitBottom);
   };
-  function scrollToBottom() {
+  function scrollToBottom () {
     setMsgRenderIndex(renderMessages.length - CHAT_PAGE_SIZE);
     scrollDomToBottom();
   }
@@ -1406,11 +1405,12 @@ function _Chat() {
     code: (text) => {
       if (accessStore.disableFastLink) return;
       console.log("[Command] got code from url: ", text);
-      showConfirm(Locale.URLCommand.Code + `code = ${text}`).then((res) => {
-        if (res) {
-          accessStore.update((access) => (access.accessCode = text));
-        }
-      });
+      accessStore.update((access) => (access.accessCode = text));
+      // showConfirm(Locale.URLCommand.Code + `code = ${text}`).then((res) => {
+      //   if (res) {
+
+      //   }
+      // });
     },
     settings: (text) => {
       if (accessStore.disableFastLink) return;
@@ -1426,7 +1426,7 @@ function _Chat() {
         if (payload.key || payload.url) {
           showConfirm(
             Locale.URLCommand.Settings +
-              `\n${JSON.stringify(payload, null, 4)}`,
+            `\n${JSON.stringify(payload, null, 4)}`,
           ).then((res) => {
             if (!res) return;
             if (payload.key) {
@@ -1509,7 +1509,7 @@ function _Chat() {
     [attachImages, chatStore],
   );
 
-  async function uploadImage() {
+  async function uploadImage () {
     const images: string[] = [];
     images.push(...attachImages);
 
@@ -2109,7 +2109,7 @@ function _Chat() {
   );
 }
 
-export function Chat() {
+export function Chat () {
   const chatStore = useChatStore();
   const session = chatStore.currentSession();
   return <_Chat key={session.id}></_Chat>;
