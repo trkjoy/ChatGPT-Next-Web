@@ -1403,7 +1403,8 @@ function _Chat () {
       doSubmit(text);
     },
     name: (text) => {
-      console.log("[Command] got name from url: ", [text, new Date().toLocaleString()]);
+      if (accessStore.disableFastLink) return;
+      console.log("[Command] got name from url: ", text);
     },
     code: (text) => {
       if (accessStore.disableFastLink) return;
