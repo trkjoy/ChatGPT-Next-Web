@@ -37,7 +37,7 @@ export function auth (req: NextRequest, modelProvider: ModelProvider) {
   // console.log("[Auth] got access code:", accessCode);
   // console.log("[Auth] hashed access code:", hashedCode);
   // console.log("[Auth UserIP] ", getIP(req));
-  // console.log("[Auth Time] ", new Date().toLocaleString());
+  console.log("[Auth Time] ", new Date().toLocaleString());
   // console.log("[Auth] hashed access code:", [req.url, req.nextUrl]);
 
   if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !apiKey) {
@@ -112,7 +112,7 @@ export function auth (req: NextRequest, modelProvider: ModelProvider) {
     }
 
     if (systemApiKey) {
-      console.log("[Auth] use system api key");
+      // console.log("[Auth] use system api key");
       req.headers.set("Authorization", `Bearer ${systemApiKey}`);
     } else {
       console.log("[Auth] admin did not provide an api key");
