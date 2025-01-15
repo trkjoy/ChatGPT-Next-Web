@@ -8,10 +8,11 @@ interface Commands {
   submit?: Command;
   mask?: Command;
   code?: Command;
+  name?: Command;
   settings?: Command;
 }
 
-export function useCommand(commands: Commands = {}) {
+export function useCommand (commands: Commands = {}) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -45,8 +46,8 @@ interface ChatCommands {
 // Compatible with Chinese colon character "："
 export const ChatCommandPrefix = /^[:：]/;
 
-export function useChatCommand(commands: ChatCommands = {}) {
-  function extract(userInput: string) {
+export function useChatCommand (commands: ChatCommands = {}) {
+  function extract (userInput: string) {
     const match = userInput.match(ChatCommandPrefix);
     if (match) {
       return userInput.slice(1) as keyof ChatCommands;
@@ -54,7 +55,7 @@ export function useChatCommand(commands: ChatCommands = {}) {
     return userInput as keyof ChatCommands;
   }
 
-  function search(userInput: string) {
+  function search (userInput: string) {
     const input = extract(userInput);
     const desc = Locale.Chat.Commands;
     return Object.keys(commands)
@@ -65,7 +66,7 @@ export function useChatCommand(commands: ChatCommands = {}) {
       }));
   }
 
-  function match(userInput: string) {
+  function match (userInput: string) {
     const command = extract(userInput);
     const matched = typeof commands[command] === "function";
 

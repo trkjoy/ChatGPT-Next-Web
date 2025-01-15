@@ -40,8 +40,8 @@ export async function requestOpenai (req: NextRequest) {
     baseUrl = baseUrl.slice(0, -1);
   }
 
-  console.log("[Proxy] ", path);
-  console.log("[Base Url]", baseUrl);
+  // console.log("[Proxy] ", path);
+  // console.log("[Base Url]", baseUrl);
 
   const timeoutId = setTimeout(
     () => {
@@ -154,7 +154,7 @@ export async function requestOpenai (req: NextRequest) {
       // If openaiOrganizationHeader is present, log it; otherwise, log that the header is not present
       console.log("[Org ID]", openaiOrganizationHeader);
     } else {
-      console.log("[Org ID] is not set up.");
+      // console.log("[Org ID] is not set up.");
     }
 
     // to prevent browser prompt for credentials

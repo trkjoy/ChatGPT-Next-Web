@@ -36,8 +36,9 @@ export function auth (req: NextRequest, modelProvider: ModelProvider) {
   // console.log("[Auth] allowed hashed codes: ", [...serverConfig.codes]);
   // console.log("[Auth] got access code:", accessCode);
   // console.log("[Auth] hashed access code:", hashedCode);
-  // console.log("[User IP] ", getIP(req));
-  // console.log("[Time] ", new Date().toLocaleString());
+  // console.log("[Auth UserIP] ", getIP(req));
+  // console.log("[Auth Time] ", new Date().toLocaleString());
+  // console.log("[Auth] hashed access code:", [req.url, req.nextUrl]);
 
   if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !apiKey) {
     return {
